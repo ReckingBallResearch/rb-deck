@@ -1,4 +1,3 @@
-#[cfg(not(target_arch = "wasm32"))]
 use super::{SlideApp, UI_COMMANDS, Value, ViewMode, backstage, dialogs, doc_window, json, media, qat, theme};
 
 fn grid_options_touched(p: &Value) -> bool {
