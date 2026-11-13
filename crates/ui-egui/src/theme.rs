@@ -32,7 +32,7 @@ pub struct Tokens {
     pub hover: Color32,
     pub pressed: Color32,
     pub selected: Color32,
-    /// DeckCraft's accent (tabs underline, selected thumbnail, primary buttons).
+    /// RB Deck's accent (tabs underline, selected thumbnail, primary buttons).
     pub accent: Color32,
     pub accent_text: Color32,
     pub contextual: Color32,

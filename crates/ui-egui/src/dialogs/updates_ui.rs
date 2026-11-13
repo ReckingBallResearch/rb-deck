@@ -25,13 +25,6 @@ pub(crate) fn enable(app: &mut SlideApp) {
     app.updates_rt.enabled = true;
 }
 
-/// Help > Check for Updates…: runs a check and reports the outcome either way.
-pub(crate) fn request_check(app: &mut SlideApp) {
-    if !matches!(app.updates_rt.updater.status(), Status::Checking) {
-        app.updates_rt.check_requested = true;
-    }
-}
-
 /// Starts the helper of an update that is ready, so that it installs once the process has exited.
 /// Later calls do nothing.
 pub(crate) fn start_pending_update(app: &mut SlideApp) {

@@ -1,4 +1,4 @@
-use super::{Color32, CornerRadius, Rect, Sense, SlideApp, Stroke, Tokens, Ui, pos2, theme, vec2};
+use super::{Color32, CornerRadius, Rect, Sense, SlideApp, Tokens, Ui, pos2, theme, vec2};
 
 /// Room the About credits need for their table; the About tab keeps its compact size.
 pub(super) const CREDITS_SIZE: egui::Vec2 = vec2(820.0, 380.0);
@@ -20,17 +20,20 @@ pub fn about(_app: &mut SlideApp, ui: &mut Ui) {
     ui.vertical_centered(|ui| {
         let (r, _) = ui.allocate_exact_size(vec2(64.0, 64.0), Sense::hover());
         paint_logo(ui.painter(), r);
-        ui.label(egui::RichText::new("DeckCraft").font(theme::bold(22.0)));
+        ui.label(egui::RichText::new("RB Deck").font(theme::bold(22.0)));
         ui.label(egui::RichText::new(version_line()).color(t.text_dim));
         ui.add_space(6.0);
-        ui.label("Presentations and slide shows, rebuilt from scratch in pure Rust.");
-        ui.label("An open-source, clean-room project. Not affiliated with Microsoft.");
+        ui.label("Presentations for RB Home, by Recking Ball Research.");
+        ui.label("Based on DeckCraft by the ArtCraft team. Not affiliated with Microsoft.");
         ui.add_space(6.0);
-        ui.hyperlink_to("Join our community on Discord", deckcraft_engine::links::DISCORD);
-        ui.hyperlink_to("getartcraft.com/apps/deckcraft", deckcraft_engine::links::APP_PAGE);
         ui.hyperlink_to("Source on GitHub", deckcraft_engine::links::GITHUB);
+        ui.hyperlink_to("DeckCraft, the project RB Deck is based on", deckcraft_engine::links::BASED_ON);
         ui.add_space(6.0);
-        ui.label(egui::RichText::new("MIT OR Apache-2.0 · © 2026 ArtCraft Team and the DeckCraft contributors").size(11.0).color(t.text_faint));
+        ui.label(
+            egui::RichText::new("MIT OR Apache-2.0 · © 2026 Recking Ball Research, the ArtCraft Team and the DeckCraft contributors")
+                .size(11.0)
+                .color(t.text_faint),
+        );
     });
 }
 
@@ -49,20 +52,28 @@ pub fn version_line() -> String {
     s
 }
 
-/// DeckCraft's mark, drawn in code: a slide card with a play triangle in our orange.
+/// RB Deck's mark, drawn in code: a slide card with a play triangle in our orange.
+/// The RB Deck icon, drawn in code from the same shapes as `packaging/rb-icon.py` (a 512 grid).
 pub fn paint_logo(p: &egui::Painter, r: Rect) {
-    let orange = Color32::from_rgb(0xF2, 0x6B, 0x1D);
-    let deep = Color32::from_rgb(0xC2, 0x4E, 0x14);
-    let card = r.shrink(r.width() * 0.08);
-    p.rect_filled(card.translate(vec2(r.width() * 0.04, r.width() * 0.05)), CornerRadius::same((r.width() * 0.14) as u8), deep);
-    p.rect_filled(card, CornerRadius::same((r.width() * 0.14) as u8), orange);
-    let c = card.center();
-    let s = card.width() * 0.22;
-    p.add(egui::Shape::convex_polygon(
-        vec![pos2(c.x - s * 0.7, c.y - s), pos2(c.x + s, c.y), pos2(c.x - s * 0.7, c.y + s)],
-        Color32::WHITE,
-        Stroke::NONE,
-    ));
+    const NAVY: Color32 = Color32::from_rgb(0x1D, 0x2B, 0x4F);
+    const SLIDE: Color32 = Color32::from_rgb(0xF7, 0xF8, 0xFA);
+    const AMBER: Color32 = Color32::from_rgb(0xF5, 0xB3, 0x01);
+    const TEAL: Color32 = Color32::from_rgb(0x2B, 0xB5, 0xA3);
+    const SHAPES: [(f32, f32, f32, f32, f32, Color32); 8] = [
+        (16.0, 16.0, 480.0, 480.0, 112.0, NAVY),
+        (80.0, 112.0, 352.0, 232.0, 20.0, SLIDE),
+        (112.0, 144.0, 150.0, 22.0, 6.0, AMBER),
+        (128.0, 262.0, 52.0, 54.0, 6.0, TEAL),
+        (206.0, 226.0, 52.0, 90.0, 6.0, TEAL),
+        (284.0, 186.0, 52.0, 130.0, 6.0, TEAL),
+        (236.0, 344.0, 40.0, 52.0, 0.0, SLIDE),
+        (176.0, 392.0, 160.0, 24.0, 12.0, SLIDE),
+    ];
+    let k = r.width().min(r.height()) / 512.0;
+    for (x, y, w, h, radius, colour) in SHAPES {
+        let shape = Rect::from_min_size(pos2(r.min.x + x * k, r.min.y + y * k), vec2(w * k, h * k));
+        p.rect_filled(shape, CornerRadius::same((radius * k).clamp(0.0, 255.0) as u8), colour);
+    }
 }
 
 #[cfg(test)]

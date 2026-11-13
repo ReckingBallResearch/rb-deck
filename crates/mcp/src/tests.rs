@@ -22,7 +22,7 @@ fn oversized_stdio_frame_is_drained_before_the_next_request() {
     assert_eq!(replies[0]["error"]["code"], -32600);
     assert!(replies[0]["error"]["message"].as_str().unwrap().contains("16 MiB"));
     assert_eq!(replies[1]["id"], 1);
-    assert_eq!(replies[1]["result"]["serverInfo"]["name"], "deckcraft");
+    assert_eq!(replies[1]["result"]["serverInfo"]["name"], "rb-deck");
 }
 
 #[test]
@@ -35,7 +35,7 @@ fn invalid_utf8_stdio_frame_gets_a_parse_error_and_does_not_stop_serving() {
     assert_eq!(replies.len(), 2);
     assert_eq!(replies[0]["error"]["code"], -32700);
     assert!(replies[0]["error"]["message"].as_str().unwrap().contains("UTF-8"));
-    assert_eq!(replies[1]["result"]["serverInfo"]["name"], "deckcraft");
+    assert_eq!(replies[1]["result"]["serverInfo"]["name"], "rb-deck");
 }
 
 fn tool(s: &mut Server, name: &str, args: Value) -> Value {
@@ -51,7 +51,7 @@ fn tool(s: &mut Server, name: &str, args: Value) -> Value {
 fn handshake_and_tool_list() {
     let mut s = Server::new(Box::new(Headless::new()));
     let r = call(&mut s, 1, "initialize", json!({"protocolVersion": "2025-06-18"}));
-    assert_eq!(r["result"]["serverInfo"]["name"], "deckcraft");
+    assert_eq!(r["result"]["serverInfo"]["name"], "rb-deck");
     let tools = call(&mut s, 2, "tools/list", json!({}));
     let names: Vec<&str> = tools["result"]["tools"].as_array().unwrap().iter().map(|t| t["name"].as_str().unwrap()).collect();
     for n in ["run_command", "render_slide", "add_slide", "add_shape", "pointer", "inspect_slide"] {

@@ -1,7 +1,7 @@
 {
   "id": "deckcraft",
-  "name": "DeckCraft",
-  "upgradeCode": "6F9C69E7-7825-40D2-BF26-C274DA676425",
+  "name": "RB Deck",
+  "upgradeCode": "6209073C-CABF-4A4E-A2C0-2F523B317626",
   "sources": [
     "deckcraft.wxs"
   ],
@@ -20,7 +20,7 @@
       "-1",
       "Software\\Classes\\Applications\\deckcraft.exe",
       "FriendlyAppName",
-      "DeckCraft"
+      "RB Deck"
     ],
     [
       "-1",
@@ -55,19 +55,19 @@
     [
       "-1",
       "Software\\Classes\\.pptx\\OpenWithProgids",
-      "DeckCraft.Presentation",
+      "RBDeck.Presentation",
       ""
     ],
     [
       "-1",
       "Software\\Classes\\.potx\\OpenWithProgids",
-      "DeckCraft.Presentation",
+      "RBDeck.Presentation",
       ""
     ],
     [
       "-1",
       "Software\\Classes\\.ppsx\\OpenWithProgids",
-      "DeckCraft.Presentation",
+      "RBDeck.Presentation",
       ""
     ],
     [

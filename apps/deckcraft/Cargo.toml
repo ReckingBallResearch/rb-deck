@@ -3,7 +3,7 @@ name = "deckcraft"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-description = "DeckCraft desktop app"
+description = "RB Deck desktop app"
 publish = false
 default-run = "deckcraft"
 

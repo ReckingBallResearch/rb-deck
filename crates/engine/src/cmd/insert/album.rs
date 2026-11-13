@@ -679,7 +679,7 @@ fn album_seed(s: &Session) -> Result<Value> {
     let st = s.doc()?;
     let slides = album_slides(st, &ids);
     let (items, _) = items_from_slides(&st.doc, &slides);
-    let theme_now = st.doc.masters.first().map(|m| m.theme.name.clone()).filter(|n| !n.is_empty()).unwrap_or_else(|| "DeckCraft".into());
+    let theme_now = st.doc.masters.first().map(|m| m.theme.name.clone()).filter(|n| !n.is_empty()).unwrap_or_else(|| "RB Deck".into());
     let inferred = infer_album(&slides, &theme_now);
     let mark = slides.first().and_then(|sl| sl.raw_ext.as_deref().and_then(parse_album_mark));
     let (layout, frame, captions, grayscale, theme) = if let Some(mark) = mark {
