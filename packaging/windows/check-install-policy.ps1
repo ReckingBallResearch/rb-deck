@@ -6,6 +6,13 @@
   actions are exercised. No AppSearch, install, repair, removal or file-writing action runs.
 #>
 param([Parameter(Mandatory = $true)] [string] $MsiPath)
+
+# A Directory row's DefaultDir is "short|long" when the long name has a space or more than 8
+# characters (and may add ":source"); the checks compare the long target name.
+function Get-LongDirName([string]$defaultDir) {
+  (($defaultDir -split ':')[0] -split '\|')[-1]
+}
+
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 $policy = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot 'install-policy.json') | ConvertFrom-Json
@@ -54,7 +61,7 @@ try {
     if ($properties.ContainsKey('ALLUSERS')) { throw 'Launcher must remain per-user; machine self-update is not part of this change.' }
     if ($properties['UpgradeCode'].Trim('{}') -ne $policy.upgradeCode) { throw 'Launcher upgrade identity changed.' }
     $dirs = @{}
-    foreach ($row in (Read-Rows $database 'SELECT `Directory`, `Directory_Parent`, `DefaultDir` FROM `Directory`' 3)) { $dirs[$row[0]] = @($row[1],$row[2]) }
+    foreach ($row in (Read-Rows $database 'SELECT `Directory`, `Directory_Parent`, `DefaultDir` FROM `Directory`' 3)) { $dirs[$row[0]] = @($row[1],(Get-LongDirName $row[2])) }
     if ($dirs['INSTALLFOLDER'][0] -ne 'CraftSuiteFolder' -or $dirs['CraftSuiteFolder'][1] -ne 'Recking Ball' -or
         $dirs['CraftSuiteFolder'][0] -ne 'LocalProgramsFolder' -or $dirs['LocalProgramsFolder'][0] -ne 'LocalAppDataFolder') {
       throw 'Launcher new-install folder must be under the per-user Recking Ball suite root.'
@@ -85,7 +92,7 @@ try {
   if ($properties['UpgradeCode'].Trim('{}') -ne $policy.upgradeCode) { throw 'The existing upgrade identity must not change.' }
   $directories = @{}
   foreach ($row in (Read-Rows $database 'SELECT `Directory`, `Directory_Parent`, `DefaultDir` FROM `Directory`' 3)) {
-    $directories[$row[0]] = @($row[1], $row[2])
+    $directories[$row[0]] = @($row[1], (Get-LongDirName $row[2]))
   }
   if ($directories['INSTALLFOLDER'][0] -ne 'CraftSuiteFolder' -or
       $directories['CraftSuiteFolder'][1] -ne 'Recking Ball') { throw 'Expected the app under the Recking Ball suite folder.' }
