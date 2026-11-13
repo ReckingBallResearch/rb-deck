@@ -1,11 +1,15 @@
-DeckCraft
+RB Deck
+Copyright (c) 2026 Recking Ball Research.
+
+RB Deck is based on DeckCraft by the ArtCraft team:
 Copyright (c) 2026 ArtCraft Team and the DeckCraft contributors.
-Licensed under the MIT License or the Apache License, Version 2.0, at your option
+https://github.com/storytold/deckcraft
+
+Both are licensed under the MIT License or the Apache License, Version 2.0, at your option
 (LICENSE-MIT, LICENSE-APACHE).
 
-The ArtCraft name, wordmark and logos in docs/brand/ are trademarks of the ArtCraft Team. They are
-not open source and are not covered by the license above; their terms are in
-docs/brand/LICENSE-brand.txt.
+ArtCraft is a trademark of the ArtCraft Team. RB Deck carries none of the ArtCraft name, wordmark
+or logos, and is not made, sponsored or endorsed by the ArtCraft Team.
 
 Third-party material
 

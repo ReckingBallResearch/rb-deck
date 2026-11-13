@@ -805,7 +805,7 @@ impl Renderer {
                 paint::picture(ctx, f.pres, &paint::resolved(rctx, &pf, None), bounds, m, t);
                 ctx.pop_layer();
             }
-            // An object DeckCraft doesn't model (an embedded OLE object, an unknown graphic): its
+            // An object RB Deck doesn't model (an embedded OLE object, an unknown graphic): its
             // preview picture, stretched over the frame, as PowerPoint draws it.
             ShapeKind::Opaque { preview: Some(media), .. } => {
                 // An embedded object's fallback picture can carry a fill (old equation objects

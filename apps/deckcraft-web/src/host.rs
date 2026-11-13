@@ -1,13 +1,13 @@
-//! The host bridge, for pages that embed DeckCraft and keep its files (a Nextcloud app, a personal
+//! The host bridge, for pages that embed RB Deck and keep its files (a Nextcloud app, a personal
 //! file server). The messages and the two transports are `craft-web-host`'s
 //! (storytold/craft-libs), the same contract as the other Craft apps' bridges, with the
-//! `deckcraft:` prefix. This module is DeckCraft's part of it.
+//! `deckcraft:` prefix. This module is RB Deck's part of it.
 //!
 //! - `?host=parent` (an `<iframe>`) talks to the same-origin parent over `postMessage`;
 //!   `data-host="page"` on the canvas (the page's own document, no iframe) uses DOM
 //!   `CustomEvent`s on the canvas instead. `?host=parent` wins when both are present. With no
 //!   parent, or a parent on another origin, there is no bridge: the normal app with downloads.
-//! - `deckcraft:ready` (to the host): sent once the app is running and listening; send a file now. DeckCraft
+//! - `deckcraft:ready` (to the host): sent once the app is running and listening; send a file now. RB Deck
 //!   reads bytes, so it says `file: false` and a host sends `bytes`.
 //! - `deckcraft:open` (from the host): `{ name, bytes }`, bytes an `ArrayBuffer` or
 //!   `Uint8Array`, name a bare file name. It opens like a file picked with File › Open on the
@@ -15,7 +15,7 @@
 //!   as its file, so Save goes back to it; an outline (.txt, .md, .rtf), a file without a name and
 //!   a damaged file open untitled.
 //! - `deckcraft:save` (to the host): `{ name, saveAs, bytes }` (with the bytes as a transferred `ArrayBuffer` over `postMessage`) for
-//!   every file DeckCraft would otherwise download. The host stores it and reports failures
+//!   every file RB Deck would otherwise download. The host stores it and reports failures
 //!   itself. `saveAs` says whether the file becomes the presentation's file:
 //!   - Save: `false`. It writes the opened file under its own name and format (a .pptx stays a
 //!     .pptx), as the desktop app does. A name the parent never sent (an untitled presentation, an
@@ -62,7 +62,7 @@ pub struct Bridge {
 }
 
 impl Bridge {
-    /// The bridge for this page, or `None` when DeckCraft isn't hosted: no `?host=parent` and no
+    /// The bridge for this page, or `None` when RB Deck isn't hosted: no `?host=parent` and no
     /// `data-host="page"` on the canvas, an unframed `?host=parent` page (it stays the normal app
     /// with downloads), or a parent on another origin.
     pub fn detect(canvas: &web_sys::HtmlCanvasElement) -> Option<Self> {
@@ -133,11 +133,11 @@ impl Bridge {
             let Message::Open { name, data } = message else { return };
             if data.size() >= MAX_OPEN_BYTES {
                 log::warn!("host file {name} is 2 GiB or larger; not opened");
-                let _ = host.post_failed(&format!("{name} is 2 GiB or larger, which DeckCraft's web build cannot open"), None);
+                let _ = host.post_failed(&format!("{name} is 2 GiB or larger, which RB Deck's web build cannot open"), None);
                 return;
             }
             let FileData::Bytes(array) = data else {
-                log::warn!("host file {name} came as a File; DeckCraft reads bytes only; not opened");
+                log::warn!("host file {name} came as a File; RB Deck reads bytes only; not opened");
                 return;
             };
             // No name is no file: the presentation opens untitled, never under an invented name.

@@ -2,7 +2,7 @@
 //! app's own control channel, the one the desktop control server drives (`docs/control-protocol.md`).
 //!
 //! The crate owns the JavaScript side (`request`, `execute`, `commands`, `docInspect`, `uiInspect`,
-//! `screenshot`, as promises with a timeout). This module is DeckCraft's part: a [`Request`] that
+//! `screenshot`, as promises with a timeout). This module is RB Deck's part: a [`Request`] that
 //! queues a [`ControlRequest`] for the app, which answers it on its next frame, and waits for the
 //! reply. A call the page gave up on is released ([`Pending`]), so the app skips it if it has not started it, instead of
 //! applying a command the page was told had failed.

@@ -1,4 +1,4 @@
-//! DeckCraft fonts: the font database (craft-fonts families, user and system fonts, and open
+//! RB Deck fonts: the font database (craft-fonts families, user and system fonts, and open
 //! substitutes for the Office fonts presentations ask for), vertical metrics, glyph outlines and
 //! OpenType shaping, script/slot classification and per-cluster fallback.
 //!

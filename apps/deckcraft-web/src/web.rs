@@ -24,9 +24,9 @@ pub fn start() {
             log::error!("missing <canvas id=\"{CANVAS_ID}\">");
             return;
         };
-        // Host modes (`craft-web-host`): `?host=parent`, a same-origin page framing DeckCraft,
+        // Host modes (`craft-web-host`): `?host=parent`, a same-origin page framing RB Deck,
         // opens presentations in it and stores what it saves (`host`); `data-host="page"` on the
-        // canvas opts a page in that runs DeckCraft in its own document. The presenter popup is
+        // canvas opts a page in that runs RB Deck in its own document. The presenter popup is
         // never the framed page.
         let hosted = crate::presenter::token().is_none();
         let bridge = if hosted { crate::host::Bridge::detect(&canvas) } else { None };
@@ -94,7 +94,7 @@ pub fn start() {
         if let Some(el) = document.get_element_by_id(LOADING_ID) {
             match result {
                 Ok(()) => el.remove(),
-                Err(e) => el.set_inner_html(&format!("<p>DeckCraft failed to start: {e:?}</p><p>A browser with WebGPU or WebGL2 is required.</p>")),
+                Err(e) => el.set_inner_html(&format!("<p>RB Deck failed to start: {e:?}</p><p>A browser with WebGPU or WebGL2 is required.</p>")),
             }
         }
     });

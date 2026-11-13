@@ -1,4 +1,4 @@
-//! Built-in transition sounds, synthesised on demand so DeckCraft ships no sound files: short
+//! Built-in transition sounds, synthesised on demand so RB Deck ships no sound files: short
 //! mono 16-bit WAVs named like PowerPoint's (Chime, Click, Camera, Whoosh, Drum Roll, Laser).
 
 use std::f64::consts::TAU;

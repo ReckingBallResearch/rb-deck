@@ -1,5 +1,4 @@
 #[cfg(not(target_arch = "wasm32"))]
-use super::updates_ui;
 use super::{SlideApp, UI_COMMANDS, Value, ViewMode, backstage, dialogs, doc_window, json, media, qat, theme};
 
 fn grid_options_touched(p: &Value) -> bool {
@@ -226,12 +225,9 @@ impl SlideApp {
                 return Ok(json!({"printed": self.print_pdf(p.clone())}));
             }
             "app.about" => self.dialog = Some(dialogs::Dialog::new("about")),
-            "app.checkUpdates" => {
-                #[cfg(not(target_arch = "wasm32"))]
-                updates_ui::request_check(self);
-                #[cfg(target_arch = "wasm32")]
-                return Err("updates are handled by the browser: reload the page".into());
-            }
+            // RB Deck is updated with RB Home, never from the internet by itself: the upstream
+            // updater would fetch RB Deck's releases over it.
+            "app.checkUpdates" => return Err("RB Deck is updated with RB Home: there is nothing to check here".into()),
             "app.palette" => self.palette = Some((String::new(), 0)),
             "app.preferences" => self.dialog = Some(dialogs::Dialog::new("preferences")),
             "app.openDialog" => self.pick_and_open(),
@@ -283,8 +279,8 @@ impl SlideApp {
                 self.dialog = Some(dialogs::Dialog::new(d));
             }
             "app.links" => {
-                use deckcraft_engine::links::{APP_PAGE, APPS, DISCORD, GITHUB, WEBSITE};
-                return Ok(json!({"discord": DISCORD, "website": WEBSITE, "apps": APPS, "appPage": APP_PAGE, "github": GITHUB}));
+                use deckcraft_engine::links::{APP_PAGE, BASED_ON, GITHUB, WEBSITE};
+                return Ok(json!({"website": WEBSITE, "appPage": APP_PAGE, "github": GITHUB, "basedOn": BASED_ON}));
             }
             _ => return Err(format!("unknown UI command `{id}`")),
         }

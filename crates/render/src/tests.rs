@@ -1403,7 +1403,7 @@ fn soft_edges_fade_to_the_outline() {
 #[test]
 fn a_file_defined_table_style_draws_its_parts() {
     // Red table background (tblBg), see-through white on banded rows, a 4 pt blue left border and
-    // no inside lines: drawn from the definition, not DeckCraft's own look for the style.
+    // no inside lines: drawn from the definition, not RB Deck's own look for the style.
     use deckcraft_model::style::{Fill, Line};
     use deckcraft_model::table::{TableBorder, TablePart, TablePartStyle, TableStyleDef};
     let rgb = |r, g, b| ColorRef::rgb(deckcraft_color::Rgba::rgb(r, g, b));

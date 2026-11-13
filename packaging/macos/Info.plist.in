@@ -7,13 +7,13 @@
   <key>CFBundleDevelopmentRegion</key>
   <string>en</string>
   <key>CFBundleDisplayName</key>
-  <string>DeckCraft</string>
+  <string>RB Deck</string>
   <key>CFBundleName</key>
-  <string>DeckCraft</string>
+  <string>RB Deck</string>
   <key>CFBundleExecutable</key>
   <string>DeckCraft</string>
   <key>CFBundleIdentifier</key>
-  <string>ai.storyteller.deckcraft</string>
+  <string>com.reckingballresearch.rbdeck</string>
   <key>CFBundleInfoDictionaryVersion</key>
   <string>6.0</string>
   <key>CFBundlePackageType</key>
@@ -43,7 +43,7 @@
   <key>NSRequiresAquaSystemAppearance</key>
   <false/>
   <key>NSHumanReadableCopyright</key>
-  <string>Copyright © the DeckCraft authors. MIT OR Apache-2.0.</string>
+  <string>Copyright © Recking Ball Research and the DeckCraft authors. MIT OR Apache-2.0.</string>
 
   <!-- The documents DeckCraft opens, so Finder's Open With and "Change All" can offer it (the
        Apple events arrive through apps/deckcraft/src/apple_events.rs). PowerPoint stays the
@@ -54,7 +54,7 @@
   <array>
     <dict>
       <key>CFBundleTypeName</key>
-      <string>DeckCraft Presentation</string>
+      <string>RB Deck Presentation</string>
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>LSHandlerRank</key>
@@ -63,7 +63,7 @@
       <string>DeckCraft</string>
       <key>LSItemContentTypes</key>
       <array>
-        <string>ai.storyteller.deckcraft.presentation</string>
+        <string>com.reckingballresearch.rbdeck.presentation</string>
       </array>
     </dict>
     <dict>
@@ -121,9 +121,9 @@
   <array>
     <dict>
       <key>UTTypeIdentifier</key>
-      <string>ai.storyteller.deckcraft.presentation</string>
+      <string>com.reckingballresearch.rbdeck.presentation</string>
       <key>UTTypeDescription</key>
-      <string>DeckCraft Presentation</string>
+      <string>RB Deck Presentation</string>
       <key>UTTypeConformsTo</key>
       <array>
         <string>public.data</string>
